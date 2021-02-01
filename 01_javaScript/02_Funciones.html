@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02_funciones en JS</title>
+</head>
+<script type="application/javascript">
+//en js las funciones son objetos
+//asociados a otros objetos
+
+//Los nombres de las funciones seran verbos
+//Utilizaremos camel case
+
+//para invocar la funcion su nombre seguido del parentesis
+function saludar(){
+    console.log("Beunos dias funciones")
+
+}
+saludar();
+//siendo las funciones un objeto se lo puedo pasar a una variable  y no necesariamente
+// deba invoczrse
+
+//si le da directamente una funcion
+
+console.log(saludar);
+
+console.log(saludar());
+
+//las funciones pueden recibir paramtros
+// no se indica el tipo
+
+function sumar(s1,s2){
+    console.log("Sumar :"+s1+s2);//muestra como cadena
+    console.log("Sumar :"+(s1+s2));//muestra el total de la operacion
+    
+}
+sumar(30,20);
+
+sumar(20,"bicicleta")
+sumar(20,true)//sale como suma de carcateres =21
+//otro caso dependiendo de el orden hara una operacion artimetica o hara un
+
+//podemos invocar cualqueir funcion con el numero de parametros que queramos
+//
+
+sumar();//nan
+sumar(1); //nan
+sumar(1,2); //3
+sumar(1,2,3);//3
+sumar(1,2,3,4)//3
+//asi sucecivamente
+function sumarNumeros(){
+    //con arguments
+    console.log(arguments)
+    let total=0
+    for(let a=0; a<arguments.length; a++){
+        total=total+arguments[a]
+    }
+    console.log(total)
+
+}
+sumarNumeros();//nan
+sumarNumeros(1); //nan
+sumarNumeros(1,2); //3
+sumarNumeros(1,2,3);//6
+sumarNumeros(1,2,3,4)//10
+
+////Suamr otra utilziando paramtros de C
+function sumarNumerosBis(...numeros){
+    //con lo trata como un arreglo
+    console.log(numeros)
+    let total=0
+    for(let a=0; a<numeros.length; a++){
+        total=total+numeros[a]
+    }
+    console.log(total)
+
+}
+sumarNumerosBis();//0
+sumarNumerosBis(1); //1
+sumarNumerosBis(1,2); //3
+sumarNumerosBis(1,2,3);//6
+sumarNumerosBis(1,2,3,4)//10
+sumarNumerosBis(1,2,3,4,5)//15
+
+//
+//las funciones piuede devolver un valor (y solo uno) e el caso que puede una consola esta mal
+//
+console.log("----------mas de funciones --------")
+    function restar(n1,n2){
+        console.log(n1-n2)
+    }
+    function restar(n1,n2){// es la mejor opcion porque tu haces lo que quieras con la funcion
+        return n1-n2; 
+    }
+
+    function restar1(n1,n2){// es la mejor opcion porque tu haces lo que quieras con la funcion
+        let resta= n1-n2
+        return resta; 
+    }
+    restar(10,20);
+    console.log(restar)//devieve la funcion
+    let resta =restar(45,20);
+    console.log(resta)
+//los principios solis pedniente buscar
+//dede ECMAScript 6 se puede dar varlores pod defecto a los parametros
+function ejemplar(datos1=100,datos2=200){
+    console.log(datos1+","+datos2)
+}
+ejemplar()//100,200
+ejemplar(10)//10,200
+ejemplar(10,20)//10,20
+ejemplar(10,20,30)//10,20 el ultimo se ingnora
+
+//funciones anidadas //nested functions
+
+function nidar(){
+    console.log("Ejecutando la funcinanidar")
+    //en JS las funciones anidadas son CLOSURES
+    function pajarillo(){
+        console.log("Ejecutando la funcinanidada pajarillo")
+
+   }
+   pajarillo()
+  
+}
+nidar()
+  // pajarillo()//zasca por estar denbtro de una funcion y su alcance no lo permte
+function dividir(n1,n2){
+    return n1/n2
+}
+
+//esto es sintacticamente correcto pero no tien sentido
+//si decalramos una funcion a la drecha del '=' aunque la pongamos nombre
+    //sera una funciona anonima
+let dividir2= function tocoto(n1,n2){
+    return n1/n2
+
+}
+//console.log(dividir2(100,2))
+//console.log(tocoto(100,2)) //casca porque esta definiada comoparametros
+
+console.log(dividir) //muestra la funcion
+console.log(dividir(100,2)) //el rstlado de la operacion
+
+//
+//en js cualuer variable le pedemo coloca como parametro
+let dato = "ASCA que "
+
+console.log( saludar) //nos muestra la funcion
+console.log(saludar ()) //invocando la funcion
+console.log( dato()) //es una variable ,as nos vale que esa vaiable referencie a una funcion
+                    //simanticamente es correcto pero al colcoar explotara indicando que no es una funcion
+                        
+
+
+console.log()
+console.log()
+
+
+
+</script>
+<body>
+    
+</body>
+</html>

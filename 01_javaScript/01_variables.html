@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01_varibles</title>
+</head>
+<script>
+    alert("Este tipo de mensaje y no que no se deb hacer")
+    console.log("tmapoco se debe usar el console")
+
+    //Variables son declaradas con 'var' ojo con let tambien
+	var altura =14
+	var apellido //(undefined)
+    console.log(apellido)
+    
+    var noseque=null
+    console.log(noseque)
+    //redefinicion de varibales
+
+        var dato1=5
+        var dato1="Hola"
+    //Decalraciones de Variables con 'let' (desde ECMAScript)
+    //Diferencia que tiene es el Ambito de la variable
+    //no podemos redefinir variables con let
+        let datos4=424
+        //let datos4=500
+        datos4=500 //puedo cambiar el valor, asi mismo nmi siquiersa del mismo tipo
+
+        datos4=true
+    //decalrando variables con 'const'
+    const PI=3.14
+    //PI=7
+    let dato5
+    
+    if(datos5==null){
+        console.log("es null (mentira o no)")
+    }
+
+    if(datos5===null){ //compara el valor y el tipo
+        console.log("es null (mentira o no)")
+    }else{
+        console.lo("no es null")
+    }
+
+let numero5="cinco"
+if (isNaN(numero5)){
+    console.log("no es un numero")
+    
+}
+
+
+console.log(typeof numero5)
+if (typeof numero5 !="number"){
+    console.log("no es el numero")
+}
+
+function pruebaVar(){
+    //las variables declaradas con "var" dentro de una funcion tiene como ambito la funcion
+    var v1="Hola LAcance de variable"
+    console.log(v1)
+    if(10>5){
+        let v2="que tal dentro"
+    }
+    console.log(v2); //si cambias la definicio de la condicion sale undefined
+
+    for (var a=0; ac10;a++){
+
+    }
+    console.log(a)
+    {
+        var v3="para que hago esto aqui"
+    }
+    console.log(v3)
+
+}
+pruebaVar();
+//Definicion con "Let"
+function pruebaLet(){
+    //las variables declaradas con "let" tiene como ambieto el bloque de instrucicion donde perteneceto 
+    let v1="Hola LAcance de variable"
+    console.log(v1)
+    if(10>5){
+        let v2="que tal dentro"
+    }
+    console.log(v2); //si cambias la definicio de la condicion sale undefined
+
+    for (let a=0; ac10;a++){
+
+    }
+    console.log(a)
+    {
+        let v3="para que hago esto aqui"
+    }
+    console.log(v3)
+
+}
+
+pruebaLet();
+
+
+
+////
+//Variables utilizadas sin decalracion previa
+//
+console.log="----------Variables sin declaracion----------------------------"
+function pruebaMovida(){
+    //variables utilziadas sin decalrar cse convierten en globales
+    mensaje ="al Loro con la variable sin var"
+    console.log(mensaje);
+}
+// el ambito de las variables utilziad "cons" pertencen  a la 
+
+</script>
+<body>
+    <h1>01_Variables</h1>
+</body>
+</html>

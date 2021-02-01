@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>05_DOM_Manejo con JS</title>
+</head>
+
+<script type="application/javascript">
+
+//DOM -Docuemtno Objetc Model
+//Igual que un docuemnto XML
+
+//Estructura de tipo Arbol con nodos de 3 tipos
+    //Elemeto/Etiqueta
+    //Atributo
+    //nodo de texto
+
+    //si queremos definir como e sun nodo
+/*
+    let nodo={
+        nombre:"",
+    }
+
+*/
+//docuemnt es un docuemnto implicito no es necesario declararlo que guarda una referencia a raiz del arbol DOM
+//no se puede crear antes que se temine de crear el arbol DOM
+/*
+let nodo1 =document.getElementById("datos");
+    console.log(nodo1);
+*/
+
+    function pruebas(){
+        let nodo1 =document.getElementById("dato");
+        console.log(nodo1);//null
+        console.log(nodo1.size)
+        console.log(nodo1["value"]);
+        
+        //
+        for(let propiedad in nodo1){
+        
+        } 
+        //por cada elemento del arbol Dom que tenga id nos crean una variable
+        //implicita cuyo nombre es el id y cuyo valor es el nodo
+        console.log("----------------Lista de nodos con de tipo h1 y formualrio-------")
+        console.log(h1)
+        console.log(formulario);
+
+        //buscamos nodos por tipo de etiqueta 
+        console.log("----------------Lista de nodos con Tagname de tipo input-------")
+        let arraydeNodos =document.getElementsByTagName("input");
+        console.log(arraydeNodos.length)
+        console.log(arraydeNodos)
+
+        //Recorrer el array buscando el value de tipo "button"
+        for(nodo1 of arraydeNodos){
+            if (nodo1.type=="button"){
+                console.log(nodo1.value)
+            }
+        }
+       //Buscando nosdos por name
+       console.log("-------------------por name documentElementsByName---------------")
+       //nota con este to de busquedas documentElementsByName" 
+       arraydeNodos=document.getElementsByName("nombre")
+         console.log(arraydeNodos); 
+       
+       for(nodo1 of arraydeNodos){
+           console.log(nodo1)
+
+       }
+       //mas de un resultado devuelve un vacio
+       // 
+       console.log("-------------------por que tengan un estilo especifico css XX---------------")
+       arraydeNodos=document.getElementsByClassName("xXx")
+         console.log(arraydeNodos); 
+       
+       for(nodo1 of arraydeNodos){
+           console.log(nodo1)
+
+       }
+       console.log("-------------------por que tengan selectores---------------")
+       let arraynodoFormulario=document.querySelectorAll("#formulario input[type=text]")
+    
+       
+       for(nodo1 of arraynodoFormulario){
+           console.log(nodo1)
+
+       }
+
+    }    
+    function validar(){
+        let errores="";
+        let nombre=document.getElementById("nombre");
+
+        //alert("Dedeb introducir una Fuera dse la condicion valor")
+        //if(document.getElementById("nombre").value.length==0){
+            if(document.getElementById("nombre").value.trim().length==0){  //para que no te cyuele
+                errores=errores+"Dedeb introducir una valor y no dejarlo vacio"            
+                return
+            //document.getElementById("name")
+        }
+        if(document.getElementById("direccion").value.trim().length==0){  //para que no te cyuele
+           errores+="Dedeb introducir una valor y no dejarlo vacio"
+            return
+            //document.getElementById("name")
+        }
+        if(document.getElementById("telefono").value.trim().length==0){  //para que no te cyuele
+            errores+="Dedeb introducir una valor y no dejarlo vacio"
+            return
+            //document.getElementById("name")
+        }
+        if(errores.length>0){
+            alert(errores);
+
+        }
+        
+    }
+        
+</script>
+
+<!--
+Cuando el navegador termina de crear el árbol DOM dispara el evento 'load'
+-->
+<body onload="pruebas()">
+
+    <h1 id="h1">05_Árbol DOM y JS</h1>
+
+    Nombre: <input type="text" 
+                   name="dato" 
+                   id="dato" 
+                   size="25" 
+                   value="texto" 
+                   class="xXx"/>
+    
+    <hr/>
+    
+    <form name="formulario" id="formulario" action="http://www.estaseguroquenoexiste.es" method="get"> 
+        
+        <input type="button" name="accion" value="Validar" onclick="validar()"/>
+        
+        <input type="button" value="Preparar parametros"/>
+        <input type="button" name="accion" value="Insertar" onclick="insertarPersona()"/>
+        <input type="submit" name="accion" value="Modificar"/>
+        <input type="submit" name="accion" value="Borrar"/>
+
+        <table>
+            <tr>
+                <td id="td1">Nombre</td>
+                <td id="td2">
+                    <input type="text" name="nombre" id="nombre"/>
+                </td>
+            </tr>
+            <tr>
+                <td id="td3">Dirección</td>
+                <td id="td4">
+                    <input type="text" name="direccion" id="direccion"/>
+                </td>
+            </tr>
+            <tr>
+                <td id="td5">Teléfono</td>
+                <td id="td6">
+                    <input type="text" name="telefono" id="telefono"/>
+                </td>
+            </tr>
+            <tr>
+                <td id="td7">Ciudad</td>
+                <td id="td8">
+                    <select name="ciudad" id="ciudad">
+                        <option>Getafe</option>
+                        <option>Madrid</option>
+                        <option>Salamanca</option>
+                        <option>Santa Pola</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td id="td9">Observaciones</td>
+                <td id="td10">
+                    <textarea name="observaciones" id="observaciones"></textarea>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</body>
+
+<!--//puedo definirlo aqui y pudiera funcionar si esta creado el arbol DOm
+    <script>
+        let nodo1 =document.getElementById("datos");
+        console.log(nodo1);
+    </script>
+-->
+</html>

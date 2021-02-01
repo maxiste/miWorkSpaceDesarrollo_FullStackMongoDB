@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js_03Arrays</title>
+</head>
+<script type="application/javascript">
+
+//// los array en Js no son cerdaderos arrays
+//  los arrays en JS son objetos
+
+///declaramos un arrays
+//no se indica tamaño
+let arrglo=[]; //array vacio
+
+let arreglo=[1,2,3,4]
+
+//los areglos no estan tipados
+let arreglo3=[false,true,2,"3"];
+
+//los arreglos son la unica estructura de datos disponible en la api de JS
+//puden utiliarse de 2 maneras distintas:
+    //como estructra de datos indexadas y asociativo (es un alista de datos que mantiene ; Arralist de java ejemplo)
+    //asociacion Estructra de datos que gurda pares claves-valor. MApa Diccionario
+
+//indexado
+//añadimos en un aposicion concreta
+let arreglo4=[]
+arreglo4[0]=10;
+arreglo4[1]=20;
+arreglo4[2]=30;
+
+//accedendo a los valor
+let datoAr1=arreglo4[0]
+let datoAr2=arreglo4[1]
+let datoAr3=arreglo4[2]
+
+console.log(datoAr1+" "+datoAr2+" "+datoAr3)
+console.log(`este es una salida ${datoAr1}, ${datoAr1},${datoAr1}`) //con el nombre de 
+
+console.log(arreglo4[1])//20)
+console.log(arreglo4[2000]) //muestra undefined
+
+console.table(arreglo4) //tipo tablita
+
+//PO, se define como definir que entidades que pertenecen del mundo real
+//Entidad/estado, es lo que diferencia a un objeto de otro
+//funcionalidad, que le podemos pedir a esa que haga
+
+//los arrays son objetos asi que tiene identidad y funcionalidad
+//la identidad tiene:
+    //-los valores guardados en el
+    //-la longitud:length
+
+  console.log(arreglo4.length)//muestra su tamaño
+  
+  //Funcionalidad
+  //los array en JS tiene una serie de funciones de utiliad
+
+  let arreglo5=[]
+  arreglo5.push("A")//push añade al final y ya no necesitamos llevar nosotros la cuenta
+  arreglo5.push("B")
+  arreglo5.push("C")
+  arreglo5.push("D")
+  arreglo5.push("E")
+
+console.log(arreglo5);
+//con las funciones podemos utilizar el array con coloa FIFO, o pila LIFO
+let e1=arreglo5.shift() //extrae del array el priemr elemento
+    e1=arreglo5.pop() //extrae del array el ultimo elemento
+
+
+console.log(arreglo5);//muestra el resto de los elelemtos
+
+//con splice() borramos
+console.log(arreglo5.splice(1,2));
+console.log(arreglo5);//muestra el resto de los elementos
+
+console.log("----------------------")
+//estructra de daftios no indexada
+//basado en clave valor
+//la clav e y el valor pueden ser de cualquier tipo
+//no se declaran de una maner concreta, se usan los corchetes
+//a aparte de la corchetes un sinatxsio propia
+
+//Indexado posicon-valor
+//en este ejemplo no sabes qen que posicion se euncuetra los cargo de cada uno porque no lo muestra al final se le coloco manual
+let empleado=[]
+empleado.push("Ringo -jefe")
+empleado.push("Max - Pedidos")
+empleado.push("Ringos - Envios")
+empleado.push("Jhonny - Cocina")
+empleado.push("BArtolo -Almacen")
+
+//ASociativo. Clave (puesto) valor (empleado)
+console.log("------arrglos con ASociativos-----------")
+
+let empleadoBis=[]
+empleadoBis["Jefe"]="Ringo"
+empleadoBis["Almacen"]="Bartolo"
+empleadoBis["Envios"]="Ringos"
+empleadoBis["Cocina"]="Jhonny"
+empleadoBis["Pedidos"]="Max"
+
+//si repetimos el valor machacamos el valor anterior
+
+console.log(empleadoBis["Peiddos"])
+
+//Añadir claves a un array asociativos 
+console.log(empleadoBis.length)//te muestra 0 porque no se utliza con posiciones
+
+//Una array se puede utlizar como idenxado y asociativo
+console.log("------arrglos con ASociativos Combinado indezado y asociativo-----------")
+let arreglo6=[]
+arreglo6[0]="uno"
+arreglo6[1]="dos"
+arreglo6[2]="tres"
+arreglo6[3]="cuatro"
+arreglo6[4]="cinco"
+arreglo6["movida"]="111"
+arreglo6["historia"]="222"
+arreglo6["asunto"]="333"
+arreglo6["tururl"]="cobra"
+console.log(arreglo6);
+console.log(arreglo6.length);//saldar el valor 5 porque son solo 5 elelemntos agregados con numero
+
+console.log("------Guadando los daots en arrglos con ASociativos Combinado indezado -----------")
+
+let persona=[]
+persona.push("Bart J Simpson")
+persona.push("C/Evergureen Terrace")
+persona.push("55555555")
+persona.push("10")
+//gaurdadon en un array asociativo, la cual seria mucho mejor
+
+let personaBis=[]
+personaBis["nombre"]="Lisa J Simpson"
+personaBis["direccion"]="C/Evergureen Terrace"
+personaBis["telefono"]="5555555"
+personaBis["edad"]="8"
+
+let persona1=[]
+persona1["nombre"]="Bender Bending rofriguez"
+persona1["direccion"]="NY"
+persona1["telefono"]="5555555"
+persona1["edad"]="8"
+
+let persona2=[]
+persona2["nombre"]="Goruchooo"
+persona2["direccion"]="Hollywood"
+persona2["telefono"]="5555555"
+persona2["edad"]="30"
+
+let listaPersonas=[]
+listaPersonas.push(personaBis)
+listaPersonas.push(persona1)
+listaPersonas.push(persona2)
+
+console.log(listaPersonas);
+////-------------------///
+//notacion del punto
+//podemos utulizar el "." para añadir claves
+let coche=[]
+coche.marca="Fiat"
+coche.marca="Uno 45a"
+coche.marca="Rojo"
+console.log(coche)
+console.log(coche.marca+" "+coche.modelo)
+
+///
+//disposicion de una sintaxis especifcia para cuando queremos unicamenye 
+//la aprte asociativa de los arereay, declarado al vuelo
+//ya aqui habalmos propiedad-valor
+
+let avion={
+    fabricante:"Gruman",
+    modelo:"F-14",
+    year:1974, //si coloco la coma la fina no da un problema
+}
+
+console.log("--------Un onbjeto en js es un objeto asociativo")
+console.log(avion) //es parecido a un jason
+
+//Diferencias entre una array asociativo y de indexado
+//concrchetes:
+    //-es un array normal y corriente
+    //-tiene todas las funciones array(push,pop,splice...)
+    //-sis es asocitivo habalmos de claves
+
+ //con llaves:
+    //es una array unbicamente asicaitivo
+    //no tiene nunguna de lasfunciones de array normal
+    //en vez de cvlaves hablamos de propiedades   
+
+//Añadimos funcionalidad a los objetos declarado como arrays asocitivos
+    let receta={
+        nombre:"Trotilla de patatas",
+
+        preparacion:"Sobornas  al aguien",
+
+        tiempo  :45,
+
+        ingredientes:["Aceite","Huevos","Pattas","Sal"],
+        //se puede definir de otra forma la lista de ingredientes
+        ingredientes:[{nombre:"Aceite",cantidad:100},
+                      {nombre:"Huevos",cantidad:50},
+                      {nombre:"Patatas",cantidad:10},
+                      {nmombre:"Cebolla",cantidad:0.001},
+                      {nombre:"Sal",cantidad:50}],
+                      
+                      saludar :function(){
+    console.log("Hola esta es una funcion dentros del Objeto")                     
+
+   }
+
+}
+console.log(receta);
+receta.tiempo=85;
+console.log("-----------Objetos cambiando propiedades----------");
+console.log(receta); 
+
+console.log("-----------Agrergando funciones como propiedades----------");
+console.log(receta); 
+console.log(receta.nombre);
+console.log(receta.saludar);
+console.log(receta.saluda());   
+
+///////Recorriendo Arrays
+console.log("-----------Recorriendo Arrays----------");
+
+let arreglo7=[11,22,44,33,66,77,88,89];
+    for(let a=0;a<arreglo7.length;a++){
+        let elemento=arreglo7[a];
+        console.log(elemento);
+    }
+// for ..of
+//Recorrido for Of  
+    console.log("-----------Recorriendo Arrays Indexados----------");
+    for(let elemento of arreglo7){
+        console.log("con For ..of: "+elemento);
+    }
+  //con la funcion forEach
+  //solo para arreglos indexados
+  
+  console.log("-----------Recorriendo Arrays forEach que reicbe funciones como parametro----------");
+  
+  //al forEach se le envia una funcion
+    //function (elemento,posicion,referenciaal arreglo){
+        //codigfo para procesar el elemento
+    //}
+   //entonces debe tener la firma de arriba que recibe como parametro 
+
+  arreglo7.forEach(function(elem){
+    console.log("con For ..of con forEach: "+elem);
+  });
+
+  arreglo7.forEach(function(elem,pos){
+    console.log("con For ..of con forEach: ("+pos+")"+elem);
+  });
+ 
+  //aqui tambien vemos que es una funcion
+  let f=function(elem){
+      //console.log(elem)
+  }
+  console.log(f);
+
+  //Utilizando funciones fecla (mas adelante veremoe en detalle)
+
+  arreglo7.forEach(e=> console.log("=>"+e));
+
+  //For in
+  //para arreglos indexados y asocitivos
+    //si array asocitivo recorre las clave
+  //no s epuede recorrer con la posicion asi que es necesario tener la clave
+
+  console.log("-----------Recorriendo Arrays  con For in----------");
+  let grupo=[];
+  grupo["bateria"]="Ringo"
+  grupo["bajo"]="Raul"
+  grupo["Guitarra"]="George"
+  grupo["Trompeta"]="Jhon"
+
+  //intentado tarer la longitud
+  console.log(grupo.length)//trae 00000..cero
+//con esto recorremos este tipo de arreglos
+for(let clave in grupo){
+    console.log(clave) //trae solo (bateria, bajo guitarrar...)
+    console.log(clave+":"+grupo[clave])
+    console.lo(grupo.clave);//undefined es un error
+}
+
+//si es una array indexado recorre las posiciones en las que hay valores
+let arreglo8 =[];
+arreglo8[0]=11;
+arreglo8[1]=22;
+arreglo8[4]=33;
+arreglo8[9]=44;
+
+//en cambio aunque se toman
+console.log(arreglo8)
+console.log(arreglo8.length)//porque lo toma como indexado (10)
+
+//pero el for in lo maneja como si fuera y muesyra solo las ociones que opsee valores
+for(let posicion in arreglo8){
+    console.log(posicion+":"+arreglo8[posicion]);    
+}
+// el for in nos permiye ver las pripiedade de un objeto
+
+let disco={
+    titulo:"The wall",
+    grupo:"Pink Floyd",
+    year:1979
+}
+for (let propiedad in disco){
+    console.log(propiedad+":"+disco[propiedad])
+    //console.log(grupo.)
+}
+
+//Creando arrays creando la funcion prototipo "arrays"
+let arreglo9 =new Array();// otra de defclaracion no necesaria
+
+//haciendo un propio forEach reproduciendo la funcion forEach 
+
+function recorrerArray(array,funcion){//se le agrega una funcion como paramatro
+    //iternamente haria eso
+    for(let a=0;a<array.length;a++){
+        let elem=array[a];
+        funcion(elem,a,array);//lo toma como funcion defiunido como por cada elmento del recorrido
+    }
+}
+let arreglo10 =[1,2,3,4,5,6,7,8]
+let f2=function(elem,pos){
+    console.log("Hola Array Propio("+pos+")"+elem)
+}
+recorrerArray(arreglo10,f2); //igual hace el recorrido
+
+console.log("--------------")
+arreglo10.forEach(f2)
+
+
+</script>
+<body>
+    <h1>03_Arrays JS</h1>
+</body>
+</html>
+<!--
+        su explicacion
+    manejo de formato de envio de informacionm
+    CSV
+    1Fulanito,c/tal,123456,fff
+    2Fulanito,c/tal,123456,fff
+    3Fulanito,c/tal,123456,fff
+
+    XML
+    lenguaje de marcado extendido
+    etiqueta, pude tener valores
+    estructuira jerarquitca
+    <clientes>
+        <clente id="1">
+            <nombre>fulanito</nombre>
+            <direccion></direcion>
+            <telefono></teelfono>
+        <clente id="2">
+            <nombre>Fulanita</nombre>
+            <direccion></direcion>
+            <telefono></teelfono>       
+        </clente>
+        <clente id="3">
+            <nombre>Venancio</nombre>
+            <direccion></direcion>
+            <telefono></teelfono>       
+        </clente>
+        <clente id="4">
+            <nombre>Venancia</nombre>
+            <direccion></direcion>
+            <telefono></teelfono>       
+        </clente>
+
+    </clientes>
+    
+    JSON
+    [
+    {
+        "id":"1",
+        "nombre":"Fulanito",
+        "direccion":"",
+        "telefono":"",
+        "correoE":""
+    },
+    {
+        "id":"2",
+        "nombre":"Fulanita",
+        "direccion":"",
+        "telefono":"",
+        "correoE":""
+    },
+    {
+        "id":"3",
+        "nombre":"Vengano",
+        "direccion":"",
+        "telefono":"",
+        "correoE":""
+    },
+    {
+        "id":"4",
+        "nombre":"Vengana",
+        "direccion":"",
+        "telefono":"",
+        "correoE":""
+    }
+]
+
+-->
