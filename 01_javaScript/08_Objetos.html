@@ -199,7 +199,44 @@ let personBis ={
 console.log(persona);
 console.log(persona.nombre);
 console.log(persona.direccion);
-console.log(persona["direccion"]["ciudad"]);
+console.log(persona["direccion"]["ciudad"]); //tambien se puede hace de esta manera
+
+//
+//Prototipos simuladno un constructor
+
+let barco1 
+
+console.log(barco1);
+//console.log(barco2);
+//console.log(barco3);
+//console.log(barco4);
+//console.log(barco5);
+
+//Añandiendo funcionalidad a los protoitippos(manera)
+console.log("---------funcionalidd a los protitpos-------------------------")
+function Ordenador(tipo, fabricante,procesador,memoria,discoDuro){
+    this.tipo = tipo,
+    this.fabricante = fabricante,
+    this.procesador = procesador,
+    this.discoDuro = discoDuro,
+
+    this.toCSV=function(){
+        return `${this.tipo},${this.fabricante},${this.procesador},${this.discoDuro}`
+    }
+}
+let ordenador1= new Ordenador("PC Sobremesa","IMB","8088",512,"10Mb")
+let ordenador2= new Ordenador("POrtatil","IMB","8088",512,"10Mb")
+let ordenador3= new Ordenador("Tablet","IMB","8088",512,"10Mb")
+
+
+console.log(ordenador1)
+console.log(ordenador1.toCSV())
+
+console.log(ordenador2)
+console.log(ordenador2.toCSV())
+
+console.log(ordenador3)
+console.log(ordenador3.toCSV())
 
 </script>
 
