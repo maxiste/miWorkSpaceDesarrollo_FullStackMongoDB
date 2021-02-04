@@ -7,7 +7,7 @@ const fs=require("fs");
 
 //let contenidoBuffer =fs.readFileSync("./recursos/fichero1.txt")
 
-console.log(process.cwd())
+//console.log(process.cwd())
 
     if (process.cwd()==__dirname){
         let contenido1 =fs.readFileSync("./recursos/fichero1.txt")
@@ -18,7 +18,7 @@ console.log(process.cwd())
         console.log("mis Ficheros"+text2)   
     }else {
         contenido1="NI mod no trae la carpeta"
-        contenido2=contenido1+"Jder"
+        contenido2=contenido1+"Jder"+"\n"
         console.log("no est atrayendo el directorio igual al DIR -> "+__dirname)
         console.log("no est atrayendo el directorio process----> "+process.cwd())
     }
@@ -37,23 +37,24 @@ console.log(contenidoString)
 */
 ////
 //Escritura de ficheros
-fs.writeFileSync("/recursos/fichero4.txt",text2)
+//fs.writeFileSync("/recursos/fichero4.txt",text2)
 
 ///Excritura asincronica de ficheros
 /////
 let txt=""
 let resultado=""
-fs.readFile("./recursos/fichero1.txt",function(err,contenidoBuffer1){
-    //
+fs.readFile("./02_nodeJS/02_Ficheros/recursos/fichero1.txt", function(err, contenidoBuffer){
+    //if(err!=null){
     if(err){
-        console.log("Errrror",err)
+        console.log("Error:",err)
         return
-    }
-    let contenido=contenidoBuffer1.toString()
-    txt+=contenido
+    }        
+    console.log("=============================")
+    let contenido = contenidoBuffer.toString()
     console.log(contenido)
+    resultado += contenido
 
-    fs.readFile("./recursos/fichero2.txt",function(err,contenidoBuffer1){
+    fs.readFile("./02_nodeJS/02_Ficheros/recursos/fichero2.txt",function(err,contenidoBuffer1){
         //
         if(err){
             console.log("Errrror",err)
@@ -63,7 +64,7 @@ fs.readFile("./recursos/fichero1.txt",function(err,contenidoBuffer1){
         txt+=contenido
         console.log(contenido)
 
-        fs.readFile("./recursos/fichero3.txt",function(err,contenidoBuffer1){
+        fs.readFile("./02_nodeJS/02_Ficheros/recursos/fichero3.txt",function(err,contenidoBuffer1){
             //
             if(err){
                 console.log("Errrror",err)
@@ -76,13 +77,13 @@ fs.readFile("./recursos/fichero1.txt",function(err,contenidoBuffer1){
             console.log("---------------------------------------------")
             console.log(resultado)
 
-            fs.writeFile("./recursos/fichero4.txt", resultado, function(err){
+            fs.writeFile("./02_nodeJS/02_Ficheros/fichero4.txt", resultado, function(err){
                 if(err){
                     console.log("Error:",err)
                     return                        
                 }
 
-                console.log("=============================")
+                console.log("==========------Se tuvo que hace Cambios de ruta directas para que tomara donde estaba el archivo===================")
                 console.log("FIN!!!!!!!")
 
             }) //escribir el resultado
@@ -94,9 +95,6 @@ fs.readFile("./recursos/fichero1.txt",function(err,contenidoBuffer1){
     }) //ficero 2
 
 }) //se lee 1ero
-
-
-
 
 /* si qureemos ir cargando los diferentes archivos
     fs.readFile("./recursos/fichero2.txt",function(err,contenidoBuffer1){

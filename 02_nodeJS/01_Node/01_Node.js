@@ -56,7 +56,7 @@ function crearHTML(){
                 <body>
                     <h2>
                         <font>
-                        Contenido HTML Generado Dinamicamente
+                        Contenido HTML Generado Dinamicamente que se 
                         </font>
                     </h2>
                         <table align="center" border ="1">
