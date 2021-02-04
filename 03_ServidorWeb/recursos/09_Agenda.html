@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgendaDesdeNOdeServidor</title>
+</head>
+<script type="application/javascript" src="./libreria.js">
+    //uso de archivos externos
+    saludar()
+</script>
+
+<script type="application/javascript">
+
+//Guardaremos los contactos en este array
+//las variables fuera de las fucniones se consideran globales
+let personas = []
+//identificador unico
+let contador=0
+// tambien podemos utilziar formualas matematicas
+Math.round()
+console.log(Math.round(Math.random()*1000))
+//Agregar el evento onclikc al btn insertar
+//Cuando se pulse el boton insertar
+/*
+    boton.innerHTML = "click";
+    document.body.appendChild(boton);
+
+    boton.onclick = function() {
+    alert("Has hecho click");
+    };
+*/
+
+function inicializar(){
+    //para crear dinamicamente los Elementos del Arbol
+    let botonInsertar =document.getElementById("btnInsertar") 
+    //otra forma
+        //document.getElementById("btnInsertar") .onclick=insertarPersonas
+     botonInsertar.onclick=insertarPersonas //para que la llame el objeto asighnado
+
+     document.getElementById("btnVaciar").onclick=vaciarFormulario
+    /*
+    botonInsertar.onclick=function(){
+        //como prueba se coloca como funcion anonima
+        
+    } 
+    */   
+}
+
+function insertarPersonas(){
+    let persona ={
+        id: ++contador,
+        id1: Math.round(Math.random()*1000), //si queremos utilzir numeracion aleatoria o al azar
+        nombre: document.getElementById("nombre").value,
+        direccion: document.getElementById("direccion").value,
+        telefono: document.getElementById("telefono").value,
+        correoE: document.getElementById("correoE").value,
+
+    }
+    //lo anadimos al array
+    personas.push(persona)
+    console.log(personas)//vemos como se va insertando
+    //invocamos la funcion vaciar el Formulario
+    vaciarFormulario();
+    rellenarTabla()
+}
+
+function vaciarFormulario(){
+    document.getElementById("nombre").value=""
+    document.getElementById("direccion").value=""
+    document.getElementById("telefono").value=""
+    document.getElementById("correoE").value=""
+    rellenarTabla()
+}
+
+
+function rellenarTabla(){
+    let tablaPersonas=document.getElementById("tablaPersonas")
+   tablaPersonas.innerHTML="" //en vez de hacer un for
+    //recorrer una array
+    for (persona of personas){
+        let tr=document.createElement("tr")
+        let td1=document.createElement("td")
+        let td2=document.createElement("td")
+        let td3=document.createElement("td")
+        let td4=document.createElement("td")
+
+        let txt1=document.createTextNode(persona.nombre)
+        let txt2=document.createTextNode(persona.direccion)
+        let txt3=document.createTextNode(persona.telefono)
+        let txt4=document.createTextNode(persona.correoE)
+        td1.append(txt1); td2.append(txt2); td3.append(txt3);td4.append(txt4)
+        
+        tr.append(td1,td2,td3,td4)
+        //crear un evento al nodo
+        tr.onclick=function(){
+            console.log("Hola nodo nuevo agregado")
+            console.log("haz hecho click"+persona.nombre)
+        }
+        tr.onmouseover=function(){
+            console.log("Hola esta encima o entrado")
+        }
+        tr.onmouseout=function(){
+            console.log("Hola ha salido el mouse de la tabla")
+        }
+        tablaPersonas.appendChild(tr)
+
+    }
+    
+    //crear los hijos tr de la tabla
+    //insertar los datos de cada registro del arreglo
+
+}
+
+function guardarDatos(){
+    //manejo de cookies a la hora de guardar informacion si ya se encuentra en el navegador capturando informacion
+    //en la sesion/oca son se puede guardar cadenas de cracteres
+    sessionStorage.setItem("clave","valor")
+    sessionStorage.getItem("clave")
+    sessionStorage.removeItem("clave")
+    sessionStorage.clear()
+
+    localStorage.setItem("clave","valor")
+    localStorage.getItem("clave")
+    localStorage.removeItem("clave")
+    localStorage.clear()
+
+
+}
+
+window.onload=inicializar //se coloca sin parentesis para que la llame el navegar y no que lo invoque yo
+
+//-recojer los valores del formulario
+//-crear un objeto con esos datos
+//-guardar el objeto en el array
+//-imprimir el array en la consola
+
+</script>
+
+<body>
+
+    <h1 align="center">
+        <font color="lightGreen">
+            AgendaGest 3000     
+        </font>
+    </h1>
+
+    <div align="center">
+        <input type="button" id="btnInsertar"  value="Insertar"/>
+        <input type="button" id="btnModificar" value="Modificar"/>
+        <input type="button" id="btnBorrar"    value="Borrar"/>
+        <input type="button" id="btnVaciar"    value="Vaciar"/>
+        <input type="button" id="btnGuardar"   value="GUARDAR"/>
+    </div>
+
+    <br/>
+
+    <form id="formulario">
+        <table align="center">
+            <tr>
+                <td>Nombre</td>
+                <td>
+                    <input type="text" name="nombre" id="nombre"/>
+                </td>  
+                <td id="msj_nombre"></td>              
+            </tr>
+            <tr>
+                <td>Dirección</td>
+                <td>
+                    <input type="text" name="direccion" id="direccion"/>
+                </td>                
+                <td id="msj_direccion"></td>              
+            </tr>
+            <tr>
+                <td>Telefono</td>
+                <td>
+                    <input type="text" name="telefono" id="telefono"/>
+                </td> 
+                <td id="msj_telefono"></td>              
+            </tr>
+            <tr>
+                <td>Correo E</td>
+                <td>
+                    <input type="text" name="correoE" id="correoE"/>
+                </td>                
+                <td id="msj_correoE"></td>              
+            </tr>
+        </table>        
+    </form>
+
+    <br/>
+
+    <table align="center" border="1">
+        <tr>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Teléfono</th>
+            <th>Correo E</th>
+        </tr>
+        <tbody id="tablaPersonas"></tbody>
+    </table>
+
+</body>
+
+</html>
+
