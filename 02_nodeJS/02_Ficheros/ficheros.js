@@ -94,7 +94,7 @@ fs.readFile("./02_nodeJS/02_Ficheros/recursos/fichero1.txt", function(err, conte
 
     }) //ficero 2
 
-}) //se lee 1ero
+}) //se lee 1ero de una manera
 
 /* si qureemos ir cargando los diferentes archivos
     fs.readFile("./recursos/fichero2.txt",function(err,contenidoBuffer1){
