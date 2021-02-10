@@ -5,18 +5,10 @@ const url="mongodb://localhost:2017";
 
 //la funcion connect es asincronica
 //nos da un objeto que represental al servidor de BAse Datps
-/*
-pasos
--conectar y obtner que representa al servidro de base de datos dbsS
--a dbsS le pedimos el esquema
--al esquema le pedimos la coleccion
--a la coleccion le pedimos que busque inserte modificque.....
-*/
-
 mongoDB.connect(url, {useUnifiedTopology:true}, function(err, dbsS){ //por cambios "useUnifiedTopology" de parametro de aucerdo a la vbersdion
 
     if(err){
-        console.log(err) 
+        console.log(err)
         return
     }
     console.log("Conexion Establecida con la BD....!!!")
@@ -28,39 +20,6 @@ mongoDB.connect(url, {useUnifiedTopology:true}, function(err, dbsS){ //por cambi
 /////
 //insertOne
 ///////
-                   
-
-  coleccionPeliculas
-    .insertOne({_id:500, titulo:"Los Bingueros", director:"Mariano Ozores",year: 1979},
-    function(err,result){
-
-        if(err){
-            console.log(err)
-            return
-        }
-        console.log("Pelicula Insertada..!")
-
-        coleccionPeliculas.findOne({titulo:"2001"},  //para hacer en la misma 
-        function(err,pelicula){
-            if(err){
-                console.log(err)
-                return
-            }
-            console.log("Pelicula.. ", pelicula)
-
-        })     
-        dbsS.close(function(err){
-            if(err){
-                console.log(err)
-                return
-            }
-            console.log("Desconectando...")
-
-        })
-
-    })
-///isnert Many
-
     coleccionPeliculas
     .insertMany({titulo:"Ls Bingueros", director:"Mariano Ozores",year: 1979},
                                   {_id:500, titulo:"Alien el Octavo Pasajero", director:"Stev Spilberg",year: 1996},
@@ -71,8 +30,18 @@ mongoDB.connect(url, {useUnifiedTopology:true}, function(err, dbsS){ //por cambi
                                         return
                                     }
                                     console.log("Pelicula Insertada..!")
-                 })
+                                })
 
+  coleccionPeliculas
+    .insertOne({_id:500, titulo:"Los Bingueros", director:"Mariano Ozores",year: 1979},
+    function(err,result){
+
+        if(err){
+            console.log(err)
+            return
+        }
+        console.log("Pelicula Insertada..!")
+    })
 
 
     let coleccionActores = esquemPeliculas.collection("actores")
