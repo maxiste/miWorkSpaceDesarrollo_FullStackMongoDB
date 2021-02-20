@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda_co_jQuery</title>
+    <script type="text/javascript" src="./jquery.js"></script>
+    <script type="text/javascript" src="./09_Libreria.js"></script>
+</head>
+
+<script type="application/javascript">
+
+//Guardaremos los contactos en este array
+//las variables fuera de las fucniones se consideran globales
+let personas = []
+//Guardaremos en esta variable la persona que esté seleccionada
+let idPersonaSel=null
+
+let trSeleccionado=null
+//identificador unico
+
+//let contador=0
+// tambien podemos utilziar formualas matematicas
+//Pruebasde de valores aleoatorios
+    //Math.round()
+    //console.log(Math.round(Math.random()*1000))
+//Agregar el evento onclikc al btn insertar
+//Cuando se pulse el boton insertar
+/*
+    boton.innerHTML = "click";
+    document.body.appendChild(boton);
+
+    boton.onclick = function() {
+    alert("Has hecho click");
+    };
+*/
+
+/*INSERTAR PERSONAS AL OBJETO CON JQW */
+function insertarPersonas(){
+/*
+    let persona ={
+        id: ++contador,
+        id1: Math.round(Math.random()*1000), //si queremos utilzir numeracion aleatoria o al azar
+        
+        nombre: $("#nombre").val()       direccion: $("#direccion").(),
+        telefono: $("#telefono").v()
+        correoE: $("#correoE").va()
+    }
+*/
+   //definimos el objeto persona con  jquery utilizando con jquery
+   
+   /*
+   se define el objeto de acuerdo al nuevo js Libreria que crea los obketo de acuerdo al los objetos de la libreria (15/02)
+   Se crea un apersona con los datos del Formulario
+   let persona ={
+        id          : ++contador, con la variable decalrada anterior
+        id1         : Math.round(Math.random()*1000), //si queremos utilzir numeracion aleatoria o al azar
+        nombre      : $("#nombre").val(),
+        direccion   : $("#direccion").val(),
+        telefono    : $("#telefono").val(),
+        correoE     : $("#correoE").val()
+
+    }
+*/
+
+    //cambiando para haciendo nquitando el objeto creado de acuerdo al formulario
+   
+   let persona=crearObjeto("formulario")
+   //persona.id= ++contador
+   persona.id=Math.round(Math.random()*1000) //si queremos utilzir numeracion aleatoria o al azar
+      
+    //lo anadimos al array
+    personas.push(persona)
+    console.log(personas)//vemos como se va insertando
+    //invocamos la funcion vaciar el Formulario
+    vaciarFormularioPersona();
+    rellenarTabla()
+
+    console.log(personas)
+    
+}
+
+
+/*FUNCION VACIAR FORMULARIO PERSON CON JQ Y LIBRERIA */
+//vaciar formualrio con jQuery
+
+function vaciarFormularioPersona(){
+    //vaciamos la variable de la seleccion hecha
+    idPersonaSel=null
+
+    //Vaciando directamente cada campo uno a uno
+    /*
+        $("#nombre").val("")
+        $("#direccion").val("")
+        $("#telefono").val("")
+        $("#correoE").va("")
+    */
+   vaciarFormulario("formulario") //utilizamos la funcion de la libreria
+if (trSeleccionado){
+    trSeleccionado.style.background="white"
+}
+
+modoInsercion() //para desactivar campos
+}
+
+
+/*FUNCION RELLENAR FORMULARIO PERSON CON JQ Y LIBRERIA */
+function rellenarFormularioPersona(persona){
+    idPersonaSel = persona.id
+   /* con jquery
+    $("#nombre").value    = persona.nombre
+    $("#direccion").value = persona.direccion
+    $("#telefono").value  = persona.telefono
+    $("#correoE").value   = persona.correoE
+   */
+
+    //$("#nombre").val(persona.nombre)
+    //$("#direccion").val(persona.direccion)
+    //$("#telefono").val(persona.telefono)
+    //$("#correoE").val(persona.correoE)
+
+   /*con libreria */
+   rellenarFormulario(persona)
+   modoSeleccion()
+}
+
+/*FUNCION RELLENAR TABLA CON JQ Y LIBRERIA */  
+///rellenar tabla con jquery
+  function rellenarTabla(){
+      //Vaciamos la tabla antes de empezar
+    $("#tablaPersonas").html("")
+
+      /* CON FOR HACE EL MISMO MECACNISMO DE RECORRER OBJETOS
+          //con for
+          for(let persona of personas){
+              //se vacia la tbla para eviatra quese rerellene otra con los datos anteriores
+              $("#tablaPersona").html="" //la vacia inicialmente
+          
+              //
+  
+              let nodos=$(
+  
+              `<tr>
+                  <td>${persona.nombre}</td> 
+                  <td>${persona.direccion}</td> 
+                  <td>${persona.telefono}</td> 
+                  <td>${persona.correoE}</td>    
+              </tr>`).click(function (){ //en este caso el this es el tr
+                  //cambiosd e color
+                  this.style.background="ligthBlue"
+                  if(trSeleccionado){
+                      trSeleccionado.style.background="white"
+                  }
+                  rellenarFormularioPersona(persona)
+              })
+              .appendTo("#tablaPersona")
+              
+              //nodos[0].onclick=function(){}
+              //.appendTo("#tablaPersona") //se usa tabla appendTo porque se grega A a B como elelemntos donde A sonb los ttr y td y B es la Tabla
+          }
+      */
+      /*USANDO JQ PARA RECORRER ARREGLOS */
+          //tambien puede usar jquery para recoreer arreglos
+          $(personas)
+              .each(function(pos, persona){
+              //dentro de personas this es cada una de las personas
+                  $(
+                  `<tr>
+                      <td>${persona.nombre}</td> 
+                      <td>${persona.direccion}</td> 
+                      <td>${persona.telefono}</td> 
+                      <td>${persona.correoE}</td>    
+                  </tr>`)
+                  .click(function (){ //en este caso el this es el tr
+                      //cambiosd e color
+                      this.style.background = "lightBlue"
+                      if(trSeleccionado){
+                          trSeleccionado.style.background="white"
+                      }
+                      trSeleccionado=this
+                      rellenarFormularioPersona(persona) //utilizamos una funcion ya decalrada
+                  })
+                  .appendTo("#tablaPersonas")
+  
+          })
+          //y con la Libreria y rellenamos la otra Tabla 
+          //manejo temporal de una era tbla automtica
+//y con la libreria
+let tabla =generarTabla(
+    personas,
+
+//Creamoa la diferentes columnas con sus etiquetas
+    {
+    columnas    :["Nombre","Dirección","Teléfono","Correo E"],
+    propiedades :["nombre","direccion","telefono","correoE"],
+    onclick     :  rellenarFormularioPersona
+   /*
+    onclick     : function (persona){
+        rellenarFormulario
+*/
+    }
+)
+    $("#tablaPersonas2").append(tabla)
+ 
+  }
+
+  /* FUNCION ELIMINAR PERSONAS CON JQ Y LIBRERIA */
+
+function eliminarPersonas(){
+    for(a=0; a<personas.length; a++){
+        let persona = personas[a]
+        if(persona.id==idPersonaSel){
+            personas.splice(a,1)
+            break
+        }
+    }
+
+    rellenarTabla()
+    vaciarFormularioPersona() //se utiliza la funcion definiada aqui
+}
+
+/*CREANDO FUNCION CON JQ PARA HACERLO MAS OPTIMIZADO */
+function modificarPersonas(){
+
+/* solo con jquery directamente con los campos del formualrio
+    for(let persona of personas){
+        if(persona.id == idPersonaSel){
+            persona.nombre    = $("#nombre").val()
+            persona.direccion = $("#direccion").val()
+            persona.telefono  = $("#telefono").val()
+            persona.correoE   = $("#correoE").val()
+            break
+        }
+    }
+*/
+
+//con este modos el escoge los objetos directamente del formuario con la funcion
+    let personaAux=crearObjeto("formulario") //utilizando la funcion de la libreria
+    personaAux.id=idPersonaSel
+
+    //utilizamos un for OPTIMIZADO para recorrer antigua por el actual recorrer los diferentes nodos que ya tiene
+    for(let a=0; a<personas.length;a++){
+        if (personas[a].id==idPersonaSel){
+            personas[a]=personaAux
+        }
+    }
+
+    rellenarTabla()
+    vaciarFormularioPersona() //se utiliza la funcion definiada aqui
+}
+
+/*DESACTIVAMOS LOS BOTONES Y ACTIVAMOS DEPENDIENDO DE LA ACCION */
+//Para cuando no hay nada seleccionado en la tabla con JQ
+function modoInsercion(){
+    //si quiero que funcione con javaScript 
+    /*
+        $("#btnInsertar")[0].disabled  = false
+        $("#btnModificar")[0].disabled = true
+        $("#btnBorrar")[0].disabled    = true
+    */
+    //con jquery
+    $("#btnInsertar").attr("disabled",false) 
+    $("#btnModificar").attr("disabled",true)
+    $("#btnBorrar").attr("disabled",true)
+
+
+}
+
+//Para cuando el usuario selecciona una persona con JQ
+function modoSeleccion(){
+    $("#btnInsertar").prop("disabled",true) 
+    $("#btnModificar").prop("disabled",false)
+    $("#btnBorrar").prop("disabled",false)
+}
+
+
+//este codigo era rellenar tabla con javaScript
+/*
+    function rellenarTabla_borrar(){
+        let tablaPersonas=$("#tablaPersona") // tablaPersonas.innerHTML="" //en vez de hacer un for.
+        tablaPersonas.innerHTML = ""
+        //recorrer una array
+        for (persona of personas){
+            let tr=document.createElement("tr")
+            let td1=document.createElement("td")
+            let td2=document.createElement("td")
+            let td3=document.createElement("td")
+            let td4=document.createElement("td")
+
+            let txt1=document.createTextNode(persona.nombre)
+            let txt2=document.createTextNode(persona.direccion)
+            let txt3=document.createTextNode(persona.telefono)
+            let txt4=document.createTextNode(persona.correoE)
+            td1.append(txt1); td2.append(txt2); td3.append(txt3);td4.append(txt4)
+            
+            tr.append(td1,td2,td3,td4)
+            //crear un evento al nodo
+            tr.onclick=function(){
+                console.log("Hola nodo nuevo agregado")
+                console.log("haz hecho click"+persona.nombre)
+            }
+            tr.onmouseover=function(){
+                console.log("Hola esta encima o entrado")
+            }
+            tr.onmouseout=function(){
+                console.log("Hola ha salido el mouse de la tabla")
+            }
+            tablaPersonas.appendChild(tr)
+
+        }
+    } 
+*/
+  
+
+   //crear los hijos tr de la tabla
+    //insertar los datos de cada registro del arreglo
+
+
+
+function guardarDatos(){
+    localStorage.setItem("personas", JSON.stringify(personas))
+    //manejo de cookies a la hora de guardar informacion si ya se encuentra en el navegador capturando informacion
+    //en la sesion/oca son se puede guardar cadenas de cracteres
+    /*    
+        sessionStorage.setItem("clave","valor")
+        sessionStorage.getItem("clave")
+        sessionStorage.removeItem("clave")
+        sessionStorage.clear()
+
+        localStorage.setItem("clave","valor")
+        localStorage.getItem("clave")
+        localStorage.removeItem("clave")
+        localStorage.clear()
+    */
+
+}
+
+
+
+function cargarDatos(){
+
+let personasJSON = localStorage.getItem("personas")
+
+//if( personasJSON != null){
+if( personasJSON ) {  
+    personas = JSON.parse(personasJSON)
+    rellenarTabla()
+}
+
+}
+$(inicializar)
+
+function inicializar(){
+    $("#btnInsertar").click(insertarPersonas)
+    $("#btnVaciar").click(vaciarFormularioPersona)
+    $("#btnGuardar").click(guardarDatos)
+    $("#btnBorrar").click(eliminarPersonas)
+    $("#btnModificar").click(modificarPersonas)
+
+    cargarDatos()
+    modoInsercion()
+}
+
+
+
+//con js
+//window.onload=inicializar //se coloca sin parentesis para que la llame el navegar y no que lo invoque yo
+
+//-recojer los valores del formulario
+//-crear un objeto con esos datos
+//-guardar el objeto en el array
+//-imprimir el array en la consola
+
+</script>
+
+<body>
+
+    <h1 align="center">
+        <font color="lightGreen">
+            AgendaGest 3000 con jQuery    
+        </font>
+    </h1>
+
+    <div align="center">
+        <input type="button" id="btnInsertar"  value="Insertar"/>
+        <input type="button" id="btnModificar" value="Modificar"/>
+        <input type="button" id="btnBorrar"    value="Borrar"/>
+        <input type="button" id="btnVaciar"    value="Vaciar"/>
+        <input type="button" id="btnGuardar"   value="GUARDAR"/>
+    </div>
+
+    <br/>
+<!-- se modifica con el formualrio trasnformadnolo en div
+    --se modifica y se loe quita los name de las etiquetas 
+
+-->
+    <div id="formulario">
+
+        <table align="center">
+            <tr>
+                <td>Nombre</td>
+                <td>
+                    <input type="text" name="nombre" id="nombre" campo="texto"/> <!-- se incorpora el campo por las priedades ngMODel ejemplo-->
+                </td>  
+                <td id="msj_nombre"></td>              
+            </tr>
+            <tr>
+                <td>Dirección</td>
+                <td>
+                    <!--<input type="text" name="direccion" id="direccion"/>-->
+                    <textarea id="direccion"></textarea>
+                </td>                
+                <td id="msj_direccion"></td>              
+            </tr>
+            <tr>
+                <td>Telefono</td>
+                <td>
+                    <input type="text" name="telefono" id="telefono"/>
+                </td> 
+                <td id="msj_telefono"></td>              
+            </tr>
+            <tr>
+                <td>Correo E</td>
+                <td>
+                    <input type="text" name="correoE" id="correoE"/>
+                </td>                
+                <td id="msj_correoE"></td>              
+            </tr>
+        </table>        
+    </div>
+
+    <br/>
+
+    <table align="center" border="1">
+        <tr>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Teléfono</th>
+            <th>Correo E</th>
+        </tr>
+        <tbody id="tablaPersonas"></tbody>
+    </table>
+    <hr>
+    <div id="tablaPersonas2"></div>
+
+</body>
+
+</html>
+

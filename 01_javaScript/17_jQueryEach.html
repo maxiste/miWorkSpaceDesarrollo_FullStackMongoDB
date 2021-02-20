@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="./jquery.js"></script>
+</head>
+
+<script type="text/javascript">
+$(pruebasSalida)
+
+function pruebasSalida(){
+        //selectpres que poseen atribustos especifcos
+    let nodos=$("h2[id^=color-]") //utilizamos expresiones regulares se coloca de esta manera
+    console.log(nodos)
+    /*
+        $("h2[id^=color-]").html("HOla para todos con html"); 
+
+        $("h2[id^=color-]").val("HOla para todos con val"); //no tiene sentido cporqye H" no tiene value
+
+        $("h2[id^=color-]").css('color','greenlight')
+
+        //tambien s peuds conxcatenar
+        $("h2[id^=color-]")
+        .html("HOla para todos con html")
+        .css('color','blue')
+
+    */
+    /*
+    //directamente jS sin each
+    nodos=$("h2[id^=color-]")
+    for (let nodo of nodos){
+        nodo.innerHTML="PRUEBA DE FOR00"
+        nodo.style.color="ligthGreen"
+    }
+    */
+
+   //probando nods y this
+        //$("h2[id^=color-]").each(function(pos,nodo){
+            //DEntro de esta funcion
+            //this es cada unos de los nodos
+
+
+//        console.log("HOLA")
+
+//        console.log(arguments)
+
+        //console.log(this) //es lo mismo
+
+        //console.log(nodo)
+
+        // })
+
+    $("<p>nada</p><p>que</p><p>nos</p><p>vamos</p>")
+
+    //Asignemos los colores a cada texto con un switch
+
+
+    $("h2[id^=color-]").each(function(pos,nodo){
+    
+        //console.log(this) //es lo mismo
+
+        //console.log(nodo)
+
+        let textoNodo=nodo.innerHTML //lo dvuelve como string
+
+        switch(textoNodo) {
+            case 'Rojo':
+                // code block
+                //no funciona porque no tiene las funciones del arbo DOM y no tienes las funciones fanbcy de jquery
+                //textoNodo.css('color','red')
+               //de esta manera
+                nodo.style.color='red' // or definidmos con el ndo
+                //o de esta manera
+              //  $(nodo).css('color','red')
+                break;
+            case 'Verde':
+                // code block
+                nodo.style.color='green'
+               // textoNodo.css('color','green')
+                break;
+            case 'Azul':
+                // code block
+              //  textoNodo.css('color','blue')
+              nodo.style.color='blue'
+                break;
+            case 'Amarillo':
+                // code block
+                //textoNodo.css('color','yellow')
+                nodo.style.color='yellow'
+                break;
+            case 'Fabada':
+
+                nodo.style.color='#556B2F'
+                break;
+             case 'Codcido':
+                // code block
+            
+                nodo.style.color='#E9967A'
+                break;
+
+           ////otra forma
+           case 'Rojo':
+                // code block
+                
+                //o de esta manera
+                $(nodo).css('color','red')
+                break;
+            case 'Verde':
+                // code block
+                $(nodo).css('color','green')
+               // textoNodo.css('color','green')
+                break;
+            case 'Azul':
+                // code block
+                $(nodo).css('color','bluelight')
+                break;
+            case 'Amarillo':
+                // code block
+                $(nodo).css('color','yellow')
+                break;
+            case 'Fabada':
+
+            $(nodo).css('color','#F4B4D4')
+                break;
+             case 'Cocido':
+                // code block
+            
+                $(nodo).css('color','#E9967A')
+                break; 
+
+
+                // code block
+
+
+        } 
+
+
+
+        })
+//dfinimos el array de colores
+let colores={
+    Rojo    :'red',
+    Verde   :'green',
+    Azul   :'blue',
+    Amarillo   :'yellow',
+    Fabada  :'#FABADA',
+    Cocido   :'#C0CID0',
+
+
+
+}
+
+//con array asociativos 
+$("h2[id^=color-]").each(function(pos,nodo){
+    let nombreColor=nodo.InnerHTML
+    $(nodo).css('color', colores[nombreColor]); //aquie estamos utilizando el array asociativbo
+
+})
+
+
+
+}
+
+
+</script>
+<p></p>
+
+<body>
+
+<h2 id="titulo" style="color:aquamarine">17 JQuery for each</h2>
+
+<h2 id="color-1">Rojo</h2>
+<h2 id="color-2">Verde</h2>
+<h2 id="color-3">Azul</h2>
+<h2 id="color-4">Amarillo</h2>
+<h2 id="color-5">Fabada</h2>
+<h2 id="color-6">Cocido</h2>
+<h2 id="color-7">Rojo</h2>
+<h2 id="color-8">Verde</h2>
+<h2 id="color-9">Azul</h2>
+<h2 id="color-10">Amarillo</h2>
+<h2 id="color-11">Fabada</h2>
+<h2 id="color-12">Cocido</h2>
+
+<div id="div"></div>
+
+</body>
+</html>

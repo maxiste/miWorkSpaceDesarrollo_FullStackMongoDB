@@ -1,1 +1,4 @@
 .vscode/
+/node_modules
+02_nodeJS/05_MongoDB/node_modules
+02_nodeJS/04_Rest/node_modules

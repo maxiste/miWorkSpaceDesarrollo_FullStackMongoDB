@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TryCatch</title>
+</head>
+
+<script type="application/javascript">
+   function convertir(){
+        let json ='{dato:100}' //json no decalrado correctamnete
+        //let json ='{"dato":100}' //json declarado correctamnete
+
+        let obj=null
+        try {
+            
+            console.log("No era un JSON!!!")
+        } catch (error) {
+            
+        }
+        finally{
+            console.log("Fin indiferentesmente se ejecuta")
+        }
+
+        console.log("te Equivocas de Objeto", obj)
+
+   }
+//otra funcion
+
+   function sumar(s1,s2){
+       //validamos ejemplo con tipo de valores
+    if (typeof s1!= "number" || typeof s2!="number"){
+        console.log("Tiene que ser dos numeros introducidos")
+        //return false es guarrada de rouky
+        throw new Error ("tienee que ser dos numeros") //lo toma javaScript para procesar el error
+    }
+    return s1+s2
+
+       //console.log(s1,s2)
+       //return true
+   }
+
+
+   convertir();
+
+   ///tambien podemos hace rnuestros porpios controles de  errores
+
+   console.log(sumar(10,20))
+
+   try {
+    sumar(10,true); //11
+    //esta linea no se ejecutara
+    sumar(10,[]) //10
+
+   } catch (error) {
+       console.log(error.message)
+   }
+   sumar(10,20); //30
+  
+   
+</script>
+
+
+<body>
+    <h1>13_Try_Catch</h1>
+</body>
+</html>

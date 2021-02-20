@@ -1,10 +1,12 @@
 const http = require("http")
-const negocioPeliculas = require("../negocioPeliculas.js")
-const restUtil = require("../restUtil")
-const mongoDBUtil = require("../mongoDBUtil") //No hace falta el .js
+const negocioPeliculas = require("./negocioPeliculas.js.js.js")
+const restUtil = require("./restUtil")
+const mongoDBUtil = require("./mongoDBUtil") //No hace falta el .js
+const servidorWeb = require("./servidorWeb")
 
 //la función 'conectar' recibe como parámetro un callback que se invocará cuando la conexión
 //se haya establecido
+
 mongoDBUtil.conectar(arrancarServidor)
 
 function arrancarServidor(){
@@ -16,6 +18,7 @@ function arrancarServidor(){
 }
     
 //En esta función haremos un triaje de la petición recibida
+//La responsabilidad de esta funcion es averiguar quien procesará la petición
 function procesarPeticion(request, response){
 
     let metodo = request.method.toUpperCase()
@@ -25,16 +28,14 @@ function procesarPeticion(request, response){
         listarPeliculas(request, response)
     } else if( metodo=="GET" && url.match("^/peliculas/[0-9a-fA-F]{24}$") ) {
         buscarPelicula(request, response)
-    } else if( metodo="POST" && url=="/peliculas"){
+    } else if( metodo=="POST" && url=="/peliculas"){
         insertarPelicula(request, response)
-1    } else if( metodo="PUT" && url.match("^/peliculas/[0-9a-fA-F]{24}$") ){
+    } else if( metodo=="PUT" && url.match("^/peliculas/[0-9a-fA-F]{24}$") ){
         modificarPelicula(request, response)
-    } else if( metodo="DELETE" && url.match("^/peliculas/[0-9a-fA-F]{24}$") ){
-        borrarPelicula(reques, response)
+    } else if( metodo=="DELETE" && url.match("^/peliculas/[0-9a-fA-F]{24}$") ){
+        borrarPelicula(request, response)
     } else {
-        //404 
-        console.log("???")
-        response.end("???")
+        servidorWeb.devolverContenidoEstatico(request, response)
     }
 }
 
@@ -64,7 +65,16 @@ function procesarPeticion(request, response){
 function listarPeliculas(request, response){
     console.log("Listar películas")
     //Aqui haría falta un criterio de búsqueda (lo ignoramos)
-    negocioPeliculas.listarPeliculas()
+    negocioPeliculas
+        .listarPeliculas()
+        .then(function(peliculas){
+            response.setHeader('Content-Type', 'application/json')
+            response.end(JSON.stringify(peliculas))
+        })
+        .catch(function(err){
+            console.log(err)
+            restUtil.devolverError(response, 500, "Error al listar las películas")
+        })
 }
 
 //GET /peliculas/:id
@@ -101,15 +111,29 @@ function buscarPelicula(request, response){
                      
         })
         .catch(function(err){
+            console.log(err)
             restUtil.devolverError(response, 500, "Error al buscar la película")
         })
-
 }
 
 //POST /peliculas
 //CT: app/json
 //-------------------------------
 //{ pelicula }
+//
+//201 Created
+//CT: app/json
+//-------------------------------
+//{ "_id" : "XXX" }
+//O también:
+//{ pelicula }
+//
+//400 Bad request
+//CT: app/json
+//-------------------------------
+//{ codigo:400, mensaje:"Datos invalidos"}
+//
+//500...
 function insertarPelicula(request, response){
     console.log("Insertar película (LC)")    
     //aqui hace falta la peli, que viene en el body
@@ -119,8 +143,20 @@ function insertarPelicula(request, response){
     //'request.on' es una función ASINCRONA
     request.on("data", function(contenidoBody){
         let pelicula = JSON.parse(contenidoBody)
-        negocioPeliculas.insertarPelicula(pelicula)
-
+        negocioPeliculas
+            .insertarPelicula(pelicula)
+            .then( function(result){
+                response.statusCode = 201
+                response.setHeader("Content-Type","application/json")
+                //Si queremos responder con solo el _id:
+                //response.end(JSON.stringify( { _id : result.insertedId }) )
+                //Si queremos responder con toda la película
+                response.end(JSON.stringify( result.ops[0] ) )
+            })
+            .catch(function(err){
+                console.log(err)
+                restUtil.devolverError(response, 500, "Error al buscar la película")
+            })
     })
 
 }
@@ -129,22 +165,68 @@ function insertarPelicula(request, response){
 //CT: app/json
 //-------------------------------
 //{ pelicula }
+//
+//200 OK
+//
+//400 Bad request
+//
+//404 Not found
+//
+//500
+
 function modificarPelicula(request, response){
     console.log("Modificar película (LC)")
-    //aqui hace falta la peli y el id
-    request.on("data", function(contenidoBody){
-        let pelicula = JSON.parse(contenidoBody)
-        negocioPeliculas.modificarPelicula(pelicula)
 
+    //aqui hace falta la peli y el id
+    let id = request.url.split("/").pop()
+
+    request.on("data", function(contenidoBody){
+        
+        let pelicula = null
+        
+        try {
+            pelicula = JSON.parse(contenidoBody)
+        } catch(error){
+            console.log("No es un JSON!")
+            restUtil.devolverError(response, 400, "Formato incorrecto: no es un json")
+        }
+
+        //Nos aseguramos de que la película que venía en el body tenga el id 
+        //que venía en la ruta
+        pelicula._id = id
+        
+        negocioPeliculas
+        .modificarPelicula(pelicula)
+        .then(function(result){
+                //if(result.value == null){
+                if(!result.value){
+                    restUtil.devolverError(response,404,"No existe la película")
+                    return
+                }
+                response.setHeader('Content-Type', 'application/json')
+                response.end(JSON.stringify(result.value))
+            })
+        .catch(function(err){
+            console.log(err)
+            restUtil.devolverError(response, 500, "Error al modificar la película") 
+        })
     })    
 }
 
 //DELETE /peliculas/:id
 function borrarPelicula(request, response){
-    console.log("Borrar película")
+    console.log("Borrar película (LC)")
     //aqui hace falta el id de la pelicula
     let id = request.url.split("/").pop() 
-    negocioPeliculas.borrarPelicula(id)    
+    negocioPeliculas
+        .borrarPelicula(id) 
+        .then(function(result){
+            //if 404
+            response.end("OK")
+        })
+        .catch(function(err){
+            restUtil.devolverError(response, 500, "Error al borrar la película") 
+        })
+    
+
 }
-
-

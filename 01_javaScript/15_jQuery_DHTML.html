@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>15_jQueryDinamic</title>
+    <!--
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    -->
+    <script type="text/javascript" src="./jquery.js"></script>
+</head>
+
+<script type="text/javascript">
+
+//////////////////////////////
+    //Buscando en nodos de texto
+    //InnerHTML
+    //InnerText
+    //////////////////////////////
+$(pruebasHTML)
+
+function pruebasHTML(){
+
+    $("#span1").html("<h1> <font color='orange'>HOLA Inner Dinamico</font></h1>")
+
+    $("#span2").html("<h1 style='color: red' >HOLA Inner Dinamico sin font color</h1>")
+    //$("h1:contains('JQuery')").html("<font color='lightGreen'>JQUERY GRÁN RESERVA</font>")
+
+    //tabla tiene 10 nodoso pero el arra tiene 1 posicion porque los nodos guindan de un unico nodo
+    let objQueryInn=$("<table border='1'><tr><td>PRuebatabla</td></tr></table>" )
+      console.log(objQueryInn); //muestra losnodos pero muestra un unico posicion en el arrglo de nodos or 
+
+      //tiene 10 nodods y el arreglo tiene 5 
+      objQueryInn=$("<h2>Siete</h2><h2>Seis</h2><h2>Caudtro</h2><h2>tres.....</h2>")//slo tiene un nodo porque son hermanos
+      console.log(objQueryInn); 
+
+
+      //aádiendo nodos al abrol crwado en elkArbol
+      let nodos=$("<table border='1'><tr><td>PRuebatabla</td></tr></table>")
+      document.getElementById("span3").append(nodos[0])
+        nodos=$("<h2>Siete</h2><h2>Caballos</h2><h2>Vienen</h2><h2>de</h2><h2>Bonanza</h2>")
+
+        //necesitamos un for para incrporarlos
+        for(let nodo of nodos){
+            document.getElementById("span3").append(nodo)
+        }
+
+        ////o con jquery
+        $("<table border='1'><tr><td>PRuebatabla</td></tr></table>").appendTo("#span3")
+
+        $("<h2>Siete</h2><h2>Caballos yyyyyy con Jquery</h2><h2>Vienen</h2><h2>de</h2><h2>Bonanza</h2>").appendTo("#span4")
+
+       //si queremos modifcar ejemplo a tofdos los span
+            $("<h3 style='color: blue' >sustirutyre los otros span con Numeral HOLA Inner Dinamico sin font color para todos los Span</h3>").appendTo("span")
+
+        $("#lista").append("<li>LIst item 1</li>")
+        $("#lista").append("<li>LIst item 2</li>")
+        $("#lista").append("<li>LIst item 3</li>")
+        $("#lista").append("<li id='separador'>----------------------</li>")
+
+        //prepend y prependti anade al principio  VALIDAR
+        $("#lista").prepend("<li>va Antes</li>")
+         //prepend y prependTo añaden al principio
+        $("#lista").prepend("<li>PRIMERO</li>")
+
+    //antes o despues de un node concreto se usa igual
+    $("#separador").before("<li>ANTES</li>")
+    $("#separador").after("<li>DESPUES</li>")    
+
+    }
+    
+
+
+
+</script>
+
+<body>
+
+<h1>JQuery DHtml</h1>
+
+    <div id="div1">
+        <span id="span1">1</span>
+        <span id="span2">2</span>
+        <span id="span3">3</span>
+        <span id="span4">4</span>
+        <span id="span5">5</span>
+        <span id="span6" class="x">6</span>
+        <span id="span7">7</span>
+    </div>
+
+    <hr/>
+
+    <div id="div2">
+        <b>
+            Si todo está listo en la cara oculta de la luna,
+            vengan esas cinco notas
+        </b>
+    </div>
+
+    <hr/>
+
+    <div id="div3"></div>
+
+    <hr/>
+
+    <div id="div4">ALGO</div>
+
+    <hr/>
+
+    <div id="div5"></div>
+
+    <hr/>
+
+    <div id="div6"></div>
+
+    <hr/>
+
+    <div id="div7">
+        <ul id="lista"></ul>        
+    </div>
+
+    <hr/>
+
+    <div id="div8">
+        <b id="texto">ABCDEFG</b>        
+    </div>
+    
+</body>
+</html>
+

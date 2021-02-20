@@ -1,7 +1,15 @@
 const mongoDB=require("mongodb");
 
+//cadena de conexion mongo local
+//const url="mongodb://localhost:2017";
 
-const url="mongodb://localhost:2017";
+//Cadena de conexion en Mongo db Atlas
+//const url = "mongodb+srv://maxisteCluster:almighty1@cluster0.hidzn.mongodb.net/<dbname>?retryWrites=true&w=majority"
+//const url = "mongodb+srv://maxisteCluster:almighty1@cluster0-shard-00-01.hidzn.mongodb.net?retryWrites=true&w=majority"
+
+const url = "mongodb+srv://maxisteCluster@cluster0.hidzn.mongodb.net?retryWrites=true&w=majority";
+
+//cluster0-shard-00-01.hidzn.mongodb.net:27017
 
 //la funcion connect es asincronica
 //nos da un objeto que represental al servidor de BAse Datps

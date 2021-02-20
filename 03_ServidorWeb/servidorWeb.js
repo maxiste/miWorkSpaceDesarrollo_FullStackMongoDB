@@ -1,21 +1,26 @@
 
 const http = require("http")
 const fs   = require("fs")
-const { url } = require("inspector")
+//const { url } = require("inspector")
+
+//Este es un modulo para coompirmir archivos y viene de NOde js
+const zlib =require("zlib")
 
 //Variables globales en Array Asocitivo para Manjeo de errores
 let statusCodes={
     400:"peticion incorrecta",
     404:"El recurso no esta Disponible",
-    405:"Metodo HPPT no adminitido"
+    405:"Metodo HPPT no adminitido",
+    500: "Error interno dl servidor"
 }
 
 let contentTypes={
 
-    ico:"image/x-icon",
-    css:"text/css",
-    js:"application/javascript",
-    html:"text/html"
+    html:   {contentType :  "text/html",                funcion: lectorTexto},
+    css:    {contentType :  "text/css",                 funcion: lectorTexto},
+    js:     {contentType :  "application/javascript",   funcion: lectorTexto},
+    ico:    {contentType :  "image/x-icon",             funcion: lectorBinario},
+    jpg:    {contentType :  "image/jpg",               funcion: lectorBinario}
 }
 
 //definicion dell servidor HTTP y lo peonesmo en amrcha
@@ -25,11 +30,10 @@ servidor.listen(puerto, function(){
     console.log("Esperando Peticiones por el puerto..."+puerto)
 })
 
-
 function procesarPeticion(request, response){
    let metodo=request.method.toUpperCase()
    let url=request.url
-
+ 
     console.log("==================================")
     console.log("Peticion recibida: "+metodo+" "+url)
 
@@ -61,35 +65,73 @@ function procesarPeticion(request, response){
 //Leera el fichero y lo colocará en el body de la respuesta con response.end(contenido del fichero)
 function leerFichero(ruta, response){
 
-    let url="./recursos"+ruta
+    ruta = "./recursos"+ruta
     console.log("Buscando Ruta"+ruta)
-    let extensiones=url.split(".").pop() //ya no hay stop
-   
-    fs.readFile(url, function(err, contenidoBuffer){
+    let extensiones=ruta.split(".").pop() //ya no hay stop
+
+    //aqui se incorpora la funcioj para que interprete los tipos de archivos en recursos
+    let contentType = contentTypes[extensiones]
+    contentType.funcion(ruta, contentType.contentType, response)
+      
+}
+
+//para convertir /o comprimir archivo yttext
+        function lectorTexto(ruta,contentType,response){
+            
+            fs.readFile(ruta, function(err, contenidoBuffer){//para leer el ficher y continuar
+                if(err){
+                    //para Simpificar supndremos que si hay un error qes que el fichero no existe //404 //response.end("404")
+                    //con pagina    //  devolverError(404,"El recursoo no Existe nada",response)
+                
+                    devolverError(404,response)
+                    return
+                }
+
+                let contenido = contenidoBuffer.toString() 
+                response.setHeader("content-type",contentType)
+                response.end(contenido)
+            });
+    //response.end("OK")
+    }
+
+//para convertir /o comprimir archivo imagenes ycio etc
+function lectorBinario(ruta,contentType,response){
+            
+    fs.readFile(ruta, function(err, contenidoBuffer){//para leer el ficher y continuar
         if(err){
-             //para Simpificar supndremos que si hay un error qes que el fichero no existe //404 //response.end("404")
+            //para Simpificar supndremos que si hay un error qes que el fichero no existe //404 //response.end("404")
             //con pagina    //  devolverError(404,"El recursoo no Existe nada",response)
-           
+        
             devolverError(404,response)
             return
         }
 
-        let contenido = contenidoBuffer.toString() 
-        //console.log(contenido)
-
-        response.setHeader("content-type",contentTypes[extensiones])
-        response.end(contenido)
+        zlib.gzip(contenidoBuffer, function (err, result) {  
+            if(err){
+                console.log(err)
+                devolverError(500, response)
+                return
+            }
+            //console.log(result)
+            response.setHeader("Content-Type", contentType.toString())
+            response.setHeader("Content-Encoding", "gzip")
+            response.end(result)
+        });
     })
-    //response.end("OK")
+//response.end("OK")
 }
 
 
+//Funcion de Errores Personalizada
 function devolverError(statusCode, response){ //se cambio quitando el parametro de mesnajes "statusCode, mesnaje, response"
     
     let mensaje=statusCodes[statusCode] ///adui se llam un array asociativo declarado
     
     let html=`<html>
-                <head><meta charset="UTF-8"></head>
+                <head>
+                    <meta charset="UTF-8">
+                    <title>ErrorPeticionServidor</title>
+                </head>
                 <body>
                 </body>
                     <h1 align="center">

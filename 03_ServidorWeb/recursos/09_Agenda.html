@@ -5,135 +5,174 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AgendaDesdeNOdeServidor</title>
 </head>
-<script type="application/javascript" src="./libreria.js">
-    //uso de archivos externos
-    saludar()
+<script type="text/javascript" src="./libreria.js">
+   
 </script>
 
 <script type="application/javascript">
+ 
+    //uso de archivos externos
+    saludar()
+    otraPrueba();
 
-//Guardaremos los contactos en este array
-//las variables fuera de las fucniones se consideran globales
-let personas = []
-//identificador unico
-let contador=0
-// tambien podemos utilziar formualas matematicas
-Math.round()
-console.log(Math.round(Math.random()*1000))
-//Agregar el evento onclikc al btn insertar
-//Cuando se pulse el boton insertar
-/*
-    boton.innerHTML = "click";
-    document.body.appendChild(boton);
-
-    boton.onclick = function() {
-    alert("Has hecho click");
-    };
-*/
-
-function inicializar(){
-    //para crear dinamicamente los Elementos del Arbol
-    let botonInsertar =document.getElementById("btnInsertar") 
-    //otra forma
-        //document.getElementById("btnInsertar") .onclick=insertarPersonas
-     botonInsertar.onclick=insertarPersonas //para que la llame el objeto asighnado
-
-     document.getElementById("btnVaciar").onclick=vaciarFormulario
+    //Guardaremos los contactos en este array
+    //las variables fuera de las fucniones se consideran globales
+    let personas = []
+    //identificador unico
+    let contador=0
+    // tambien podemos utilziar formualas matematicas
+    Math.round()
+    console.log(Math.round(Math.random()*1000))
+    //Agregar el evento onclikc al btn insertar
+    //Cuando se pulse el boton insertar
     /*
-    botonInsertar.onclick=function(){
-        //como prueba se coloca como funcion anonima
-        
-    } 
-    */   
-}
+        boton.innerHTML = "click";
+        document.body.appendChild(boton);
 
-function insertarPersonas(){
-    let persona ={
-        id: ++contador,
-        id1: Math.round(Math.random()*1000), //si queremos utilzir numeracion aleatoria o al azar
-        nombre: document.getElementById("nombre").value,
-        direccion: document.getElementById("direccion").value,
-        telefono: document.getElementById("telefono").value,
-        correoE: document.getElementById("correoE").value,
+        boton.onclick = function() {
+        alert("Has hecho click");
+        };
+    */
+
+    function inicializar(){
+        //para crear dinamicamente los Elementos del Arbol
+        let botonInsertar =document.getElementById("btnInsertar") 
+        //otra forma
+            //document.getElementById("btnInsertar") .onclick=insertarPersonas
+        botonInsertar.onclick=insertarPersonas //para que la llame el objeto asighnado
+
+        document.getElementById("btnVaciar").onclick=vaciarFormulario
+        /*
+        botonInsertar.onclick=function(){
+            //como prueba se coloca como funcion anonima
+            
+        } 
+        */   
+    }
+
+    function insertarPersonas(){
+        let persona ={
+            id: ++contador,
+            id1: Math.round(Math.random()*1000), //si queremos utilzir numeracion aleatoria o al azar
+            nombre: document.getElementById("nombre").value,
+            direccion: document.getElementById("direccion").value,
+            telefono: document.getElementById("telefono").value,
+            correoE: document.getElementById("correoE").value,
+
+        }
+        //lo anadimos al array
+        personas.push(persona)
+        console.log(personas)//vemos como se va insertando
+        //invocamos la funcion vaciar el Formulario
+        vaciarFormulario();
+        rellenarTabla()
+    }
+
+    function vaciarFormulario(){
+        document.getElementById("nombre").value=""
+        document.getElementById("direccion").value=""
+        document.getElementById("telefono").value=""
+        document.getElementById("correoE").value=""
+        rellenarTabla()
+    }
+
+
+    function rellenarTabla(){
+        let tablaPersonas=document.getElementById("tablaPersonas")
+    tablaPersonas.innerHTML="" //en vez de hacer un for
+        //recorrer una array
+        for (persona of personas){
+            let tr=document.createElement("tr")
+            let td1=document.createElement("td")
+            let td2=document.createElement("td")
+            let td3=document.createElement("td")
+            let td4=document.createElement("td")
+
+            let txt1=document.createTextNode(persona.nombre)
+            let txt2=document.createTextNode(persona.direccion)
+            let txt3=document.createTextNode(persona.telefono)
+            let txt4=document.createTextNode(persona.correoE)
+            td1.append(txt1); td2.append(txt2); td3.append(txt3);td4.append(txt4)
+            
+            tr.append(td1,td2,td3,td4)
+            
+        //Esta funcion es una función anidada
+        //Ej JS las funciones anidadas son closures
+        //Cuando se declara una función anidada que utiliza una variable de la función nido
+        //la funcion anidada tendrá declarada de manera implícita dicha variable con el valor
+        //correspondiente es su contexto
+
+            //crear un evento al nodo
+            tr.onclick=function(){
+                console.log("Hola nodo nuevo agregado")
+                console.log("haz hecho click"+persona.nombre)
+            }
+            tr.onmouseover=function(){
+                console.log("Hola esta encima o entrado")
+            }
+            tr.onmouseout=function(){
+                console.log("Hola ha salido el mouse de la tabla")
+            }
+            tablaPersonas.appendChild(tr)
+
+        }
+        
+        //crear los hijos tr de la tabla
+        //insertar los datos de cada registro del arreglo
 
     }
-    //lo anadimos al array
-    personas.push(persona)
-    console.log(personas)//vemos como se va insertando
-    //invocamos la funcion vaciar el Formulario
-    vaciarFormulario();
-    rellenarTabla()
-}
 
-function vaciarFormulario(){
-    document.getElementById("nombre").value=""
-    document.getElementById("direccion").value=""
-    document.getElementById("telefono").value=""
-    document.getElementById("correoE").value=""
-    rellenarTabla()
-}
-
-
-function rellenarTabla(){
-    let tablaPersonas=document.getElementById("tablaPersonas")
-   tablaPersonas.innerHTML="" //en vez de hacer un for
-    //recorrer una array
-    for (persona of personas){
-        let tr=document.createElement("tr")
-        let td1=document.createElement("td")
-        let td2=document.createElement("td")
-        let td3=document.createElement("td")
-        let td4=document.createElement("td")
-
-        let txt1=document.createTextNode(persona.nombre)
-        let txt2=document.createTextNode(persona.direccion)
-        let txt3=document.createTextNode(persona.telefono)
-        let txt4=document.createTextNode(persona.correoE)
-        td1.append(txt1); td2.append(txt2); td3.append(txt3);td4.append(txt4)
-        
-        tr.append(td1,td2,td3,td4)
-        //crear un evento al nodo
-        tr.onclick=function(){
-            console.log("Hola nodo nuevo agregado")
-            console.log("haz hecho click"+persona.nombre)
-        }
-        tr.onmouseover=function(){
-            console.log("Hola esta encima o entrado")
-        }
-        tr.onmouseout=function(){
-            console.log("Hola ha salido el mouse de la tabla")
-        }
-        tablaPersonas.appendChild(tr)
-
-    }
+    //rellenar 2da Tabla
+    function rellenarTabla2(){
     
-    //crear los hijos tr de la tabla
-    //insertar los datos de cada registro del arreglo
+    let tablaPersonas2 = document.getElementById("tablaPersonas2")
+    tablaPersonas2.innerHTML = ""
 
-}
+    for(let persona of personas){
+        let trHtml = 
+        `<tr>
+            <td>${persona.nombre}</td>
+            <td>${persona.direccion}</td>
+            <td>${persona.telefono}</td>
+            <td>${persona.correoE}</td>
+        </tr>`
 
-function guardarDatos(){
-    //manejo de cookies a la hora de guardar informacion si ya se encuentra en el navegador capturando informacion
-    //en la sesion/oca son se puede guardar cadenas de cracteres
-    sessionStorage.setItem("clave","valor")
-    sessionStorage.getItem("clave")
-    sessionStorage.removeItem("clave")
-    sessionStorage.clear()
+        let tbody = document.createElement("tbody")
+        tbody.innerHTML = trHtml
 
-    localStorage.setItem("clave","valor")
-    localStorage.getItem("clave")
-    localStorage.removeItem("clave")
-    localStorage.clear()
+        //let tr = tbody.childNodes[0]
+        let tr = tbody.firstElementChild
+        tr.onclick = function(){
+            rellenarFormulario(persona)
+        }
+
+        tablaPersonas2.append(tr)
+    }
+
+}    
+
+    function guardarDatos(){
+        //manejo de cookies a la hora de guardar informacion si ya se encuentra en el navegador capturando informacion
+        //en la sesion/oca son se puede guardar cadenas de cracteres
+        sessionStorage.setItem("clave","valor")
+        sessionStorage.getItem("clave")
+        sessionStorage.removeItem("clave")
+        sessionStorage.clear()
+
+        localStorage.setItem("clave","valor")
+        localStorage.getItem("clave")
+        localStorage.removeItem("clave")
+        localStorage.clear()
 
 
-}
+    }
 
-window.onload=inicializar //se coloca sin parentesis para que la llame el navegar y no que lo invoque yo
+    window.onload=inicializar //se coloca sin parentesis para que la llame el navegar y no que lo invoque yo
 
-//-recojer los valores del formulario
-//-crear un objeto con esos datos
-//-guardar el objeto en el array
-//-imprimir el array en la consola
+    //-recojer los valores del formulario
+    //-crear un objeto con esos datos
+    //-guardar el objeto en el array
+    //-imprimir el array en la consola
 
 </script>
 

@@ -1,0 +1,63 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Document</title>
+        <script type="text/javascript" src="./jquery.js"></script>
+    </head>
+    
+    <script type="text/javascript">
+    
+    function dale(){
+        console.log("-------------------------");
+        console.log("dala dale dale")
+        console.log(arguments) //manejo la cantidad de parametros necesarios sea 0 or 10 con arguments
+    }
+    
+    $(prueba)
+    function validar(evento){ //agregamos un evento
+        if($("#dato").val().trim().length==0){
+            alert("los Daos son Oblifagotiors con adicinando Evento")
+
+            //si quiero matar el eeveto
+            //evento.preventDEfault()
+        }
+    }
+    
+    function prueba(){
+        
+        //no es recomendable
+            //let nodos=$("#DALE")
+            //nodos[0].onclick(dale)
+        
+            $("input").click(dale) //lo asignaria para todos los inputs incluyendo los submit
+            $("input").click(dale) // jQuery lo ejecuta dos veces por lo acumula
+
+        document.getElementById("DALE").onclick=dale //deja solo un solo evento no pasa lo mismo que jQuery
+        document.getElementById("DALE").addEventListener("click",dale) 
+
+        //otro ejemploo con submit
+        $("#enviar").click(validar)
+
+    }
+    //con addListener de javaScript no hace el mismo comportamiento
+    function otraFuncion(){
+        console.log("Se ejecuta la otra funcion asociada como evento del la et")
+    }
+
+    </script>
+    
+    <body>
+    
+        <h1>JQuery. Eventos</h1>
+    
+        <input type="button" id="DALE" value="DALE" onclick="otraFuncion()"/>
+    
+        <hr/>
+    
+        <form action="XXX">
+            <input type="text" id="dato" name="dato" value=""/>
+            <input type="submit" id="enviar" value="Enviar"/>
+        </form>
+    
+    </body>
+    </html>

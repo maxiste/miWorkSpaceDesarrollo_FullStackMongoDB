@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax_and_jQuery</title>
+    <script type="text/javascript" src="./jquery.js"></script>
+    <script type="text/javascript" src="./09_Libreria.js"></script>
+</head>
+<script type="application/javascript">
+
+function obtenerListaUsuarios(){
+   //"https://regres.in/api/users?delay=10",true)
+
+   //a la manera javaScript
+        ///
+        /*JAVA SCRIPT A PALO SECO */
+        
+        /*
+        let xhr=new XMLHttpRequest()
+            xhr.open("GET", 'https://jsonplaceholder.typicode.com/users' )
+            xhr.onload=function(){
+                rellenarTabla(JSON.parse(this.responseText))
+            }
+            xhr.onerror=function(){
+                procesarError("Casca")
+            }
+            xhr.send()
+         */
+
+
+        ///
+   /*
+    //de manera antigua
+    //JQUery invoca la función success pasando como primer parámetro
+    //el contenido del body de la respuesta
+    //Si ha sido Content-type:app/json hace el JSON.parse por nosotros    
+    
+    //-url
+    //-metodo
+    //-parametro
+    //body
+    $.ajax({
+            type    :'GET', //por defecto es tes GET
+            url     :'https://jsonplaceholder.typicode.com/users', //por defecto es '/'
+            async   :true,
+            success : rellenarTabla,
+            error   : procesarError,
+            complete : movida
+        
+        })
+
+*/
+//Manera actual objeto ajax en jq como actual
+
+$.ajax({
+        type    :'GET', //por defecto es tes GET
+        url     :'https://jsonplaceholder.typicode.com/users', //por defecto es '/'
+        async   :true
+   })
+   .done(rellenarTabla)
+   .fail(procesarError)
+   .always(movida)
+
+      //Tambien disponemos de las funciones
+    //$.get
+    //$.post
+    //$.put
+    //$.delete
+
+    //Para envíar una peticion POST con un JSON en el body
+    //usando jQuery:
+    /*
+    $.ajax( {
+            type        : 'POST', 
+            url         : '...',
+            contentType : 'application/json'
+            data        : JSON.stringify(objeto),
+        })
+        .done( f )
+        .fail( f )
+    */
+
+   ////////////////////////////////////////////////////////////
+
+    function rellenarTabla(usuarios){
+        console.log(usuarios)
+        console.log(arguments)
+
+       let tabla= generarTabla(usuarios,{ //obligatorio el arrays de elementos que deben venir
+            columnas        :   ["Nombre","Teléfono", "Corre Elec"],
+            propiedades     :   ["name","phone","email"],
+            idTabla         :   "tablaUsuarios"
+
+        }) 
+        $("#divTablaUsuarios").append(tabla)
+
+    }
+    function procesarError(error){
+        console.log("Error!",error)
+    }
+
+    function movida(){
+        console.log("Completado!!!")
+
+    }
+
+
+}
+
+$(inicializar)
+
+function inicializar(){
+    //$("#btnListar").click(obtenerListaUsuarios)
+   $("#botonLista").click(obtenerListaUsuarios)
+
+}
+
+</script>
+<body>
+
+    <h1>18_AJAX-Jquery</h1>
+
+    <hr/>
+    
+
+    <p align="center">
+        <button id="botonLista">Listar Usuarios x consola </button>
+    </p>
+
+
+    <div id="mensaje"></div>
+
+    <h1 align="center" id="mensaje"></h1>
+<hr>
+    <div id="divTablaUsuarios">
+
+    </div>
+    
+</body>
+</html>

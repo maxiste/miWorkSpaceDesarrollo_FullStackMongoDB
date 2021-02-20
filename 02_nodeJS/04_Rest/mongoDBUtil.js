@@ -1,6 +1,11 @@
 const mongoDB=require("mongodb")
 
-let url ="mongodb://localhost:2017"
+let url = "mongodb://localhost:27017"
+
+//const url = "mongodb+srv://maxisteCluster@cluster0.hidzn.mongodb.net?retryWrites=true&w=majority";
+//const url = "mongodb+srv://maxisteCluster:almighty1@cluster0.hidzn.mongodb.net?retryWrites=true&w=majority";
+//const url = "mongodb+srv://maxisteCluster:almighty1@cluster0.hidzn.mongodb.net/?retryWrites=true&w=majority";
+
 //esta propiedad se utilizar en la logica de negocio
 exports.esquemaPeliculas=null
 
