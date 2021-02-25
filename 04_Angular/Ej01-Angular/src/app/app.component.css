@@ -1,0 +1,25 @@
+body{
+    background-color: rgb(145, 100, 34);
+}
+
+h2{
+    font-size: large;
+}
+.normal{
+    color: blue;
+}
+
+.error{
+    color: brown;
+}
+
+table{
+   
+        border: black 10px dotted;
+        margin: 20px;
+        padding: 20px;
+        background-color: lightblue;
+      
+        background-clip: padding-box;
+  
+}

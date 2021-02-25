@@ -1,0 +1,128 @@
+<marquee>
+<h1>Esto es una Prueba con Angular y sus relaciones entre Componentes</h1></marquee>
+<hr>
+<!--se considera este archivo como plantilla-->
+<!-- Expresiones-->
+
+Expresiones :<br/>
+con las llaves las usamos cuando qurermos añadir el valor de una variable directamemte de un nodo de texto
+
+<h2>{{100+200  }}</h2>
+
+<h2>{{"movida"+" Sin Unir"  }}</h2>
+
+<h2>{{500>250}}</h2>
+
+<!--
+  Una expresion quye no inlcuya una variable es absurda, debes estar decalradas en el componente
+  las variables utilziadas eb kas exorwauones normalmente estarn declardas en el componente
+  aunque tambien se podran decakrar eb ka propia plantilla
+-->
+<h2 style="color: aquamarine">
+  {{mensaje}}
+
+  {{numero1 + numero2}}
+
+</h2>
+<hr>
+<b>Bidireaccional Binding ngModel de Angular</b>
+<!--
+  Eventos;
+  (nombreEvento)="llamada a la funcion()"
+-->
+<div>
+  
+    <button (click)="insertarDisco()">Insertar</button>
+    <button (click)="vaciarFormulario()">Vaciar</button>
+
+</div>
+<table>
+  <tr>
+    <td>Titulo</td>
+    <td>
+      <!--
+
+      -->
+      <input type="text" [(ngModel)]="disco.titulo"/> <!-- se lleva a la definicion de la clase-->
+    </td>
+  </tr>
+  <tr>
+    <td>Cantante</td>
+    <td>
+      <input type="text" [(ngModel)]="disco.cantante">
+    </td>
+  </tr>
+  <tr>
+    <td>Grupo</td>
+    <td>
+      <input type="text" [(ngModel)]="disco.grupo">
+    </td>
+  </tr>
+  <tr>
+    <td>Año</td>
+    <td>
+      <input type="text" [(ngModel)]="disco.year">
+    </td>
+  </tr>
+
+</table>
+<hr>
+<table border="1">
+<tr>
+    <th>Titulo</th>
+    <th>Cantante</th>
+    <th>Grupo</th>
+    <th>Año</th>
+  </tr>
+  <!--
+    *ngFor repite un aetiqueta tantas veces como elemento haya
+    el ayyar sera una propiedad del componente
+    automaticamente si haces cambio sobre el registyro aumtomaticamente repinta la tabla
+
+    donde , <tr *ngFor="let d of discos"> discos es el array que recorrera y esta definido en app.component
+      la expreson es exactamente lo misma que se usa en js o jquery "for(let variable of arreglo){}"
+  -->
+  <tr *ngFor="let d of discos">
+    <td>
+      {{d.titulo}}
+    </td>
+    <td>
+      {{d.cantante}}
+    </td>
+    <td>
+      {{d.grupo}}
+    </td>
+    <td>
+      {{d.year}}
+    </td>
+  </tr>
+
+  <!--
+condicionando
+<td colspan="3"> para que salga en las 3 columnas y ocupe todo el espacio definido
+  la etiqueta que inlucye *ngIf aparecera o no dependiento dedel restladio de evealuar la expresion
+  booleana 
+  -->
+  <tr *ngIf="discos.length==0">
+    <td colspan="4">
+      No hay Discos
+    </td>
+  </tr>
+</table>  
+
+<hr>
+<!--
+   si queremos que el 'class' depende de un apropiedad delk compnente
+  utilizamos [ngClass]="propiedad" debe estra dfinido en el compoennet
+  NOta: tambien es cierto que buscara donde este definido la clase o en css particular o en el style.css general igual lo aplicara
+  -->
+  <button (click)="btnRojo()">Convierte Rojo</button>
+  <button (click)="btnBlue();etiqcss='normal'">Convierte Azul</button>
+  <!--
+    pasandose las reglas de capas
+  <button (click)="btnBlue();etiqcss='normal'">Convierte Azul sin la funcion</button>
+  <button (click)="etiqcss='normal'">Convierte Azul sin funcion definida en ekl componente</button>
+  -->
+<div>
+  <h1 [ngClass]="etiqcss">HOLA Perinola</h1>
+</div>

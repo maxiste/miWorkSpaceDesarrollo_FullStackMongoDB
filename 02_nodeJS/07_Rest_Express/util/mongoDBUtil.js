@@ -17,7 +17,7 @@ exports.conectar=function(callback){
                 console.log("Conexion Establecida")
                 //aquie hacemos el exporta de esquemaPeliculas
                 exports.esquemaPeliculas = dbsS.db("esquemaPeliculas")
-                //incovcamoa el callBack
+                //incovcamoa el callBack sabiendo que es una funcion
                 callback()
             })
         .catch(function(err){
